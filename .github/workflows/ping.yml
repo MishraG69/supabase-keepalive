@@ -2,7 +2,7 @@ name: Keep Supabase Alive
 
 on:
   schedule:
-    - cron: "0 0 */2 * *"  # every 2 days
+    - cron: "0 0 * * *"   # runs daily (recommended)
   workflow_dispatch:
 
 jobs:
@@ -10,7 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Ping Website
+      - name: Ping website + Supabase
         run: |
           curl -I https://drretro-artgallery.netlify.app
           curl -I https://drretro-adminpanel69.netlify.app
+          
+          curl -s "https://gkgwhmderovuvklopzcl.supabase.co/rest/v1/posts?select=id" \
+            -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdrZ3dobWRlcm92dXZrbG9wemNsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MTc5MTAsImV4cCI6MjA5MTI5MzkxMH0.ksh8WZ2R1E9f941AwinRvAsswSgkyNeCQ95-ijSBkM0" \
+            -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdrZ3dobWRlcm92dXZrbG9wemNsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MTc5MTAsImV4cCI6MjA5MTI5MzkxMH0.ksh8WZ2R1E9f941AwinRvAsswSgkyNeCQ95-ijSBkM0"
